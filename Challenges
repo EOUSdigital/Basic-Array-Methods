@@ -1,0 +1,226 @@
+// 🧩 Challenge: Smart Product Dashboard
+
+//* 🎯 Scenario:
+// We are managing a product list for an online store.
+//  Each product has:
+//  • name (string)
+//  • price (number)
+//  • inStock (boolean)
+
+//  Here is the product list:
+
+const products = [
+    { name: 'Laptop', price: 1200, inStock: true },
+    { name: 'Phone', price: 800, inStock: false },
+    { name: 'Tablet', price: 600, inStock: true },
+    { name: 'Monitor', price: 300, inStock: true },
+    { name: 'Headphones', price: 150, inStock: false },
+];
+
+//* ✅ Tasks:
+//  1. Use .filter() to get only products that are in stock.
+//  2. Use .map() to create a list of product names in this format:
+//  - '💻 Laptop - $1200'
+//  3. Use .find() to locate the first product that costs less than $500.
+//  4. Log:
+//  • The list of available products.
+//  • The first budget-friendly product.
+//  • If no product is under $500, log "No budget products available."
+
+//! Solution
+
+//* Step 1.
+
+const availableStock = products.filter(product => product.inStock === true);
+
+//* Step 2.
+
+const newProductName = availableStock.map(product => `${product.name} - $${product.price}`);
+
+//* Step 3.
+
+const budgetProduct = products.find(product => product.price < 500);
+
+//* Step 4.
+
+console.log('🛒 Available Products: ');
+console.log(availableStock);
+
+console.log(newProductName);
+
+if (budgetProduct) {
+    console.log('🎯 First Budget Product: ' + budgetProduct.name);
+} else {
+    console.log('🎯 First Budget Product: No budget products available.');
+};
+
+
+// 🧩 Challenge: Premium Product Selector
+
+//* 🎯 Scenario:
+//  You are building a dashboard for a luxury store.
+//  From a product list, you need to:
+//  1. Filter products that:
+//  • Are in stock
+//  • Cost over $500
+//  2. Map those products into this format:
+//  - "💻 Premium: Laptop ($1200)"
+//  3. If no premium products exist, log:
+//  - "❌ No premium products available."
+
+//* ✅ Data Example:
+
+const products2 = [
+    { name: 'Laptop', price: 1200, inStock: true },
+    { name: 'Phone', price: 800, inStock: false },
+    { name: 'Tablet', price: 600, inStock: true },
+    { name: 'Monitor', price: 300, inStock: true },
+    { name: 'Headphones', price: 150, inStock: false }
+];
+
+//? 🧠 Task:
+//  1. Use method chaining to:
+//  • .filter() in-stock & price > 500.
+//  • .map() into the "🔥 Premium: Name ($Price)" format.
+//  2. Log the result.
+//  3. If the result array is empty, log the fallback message.
+
+//! Solution
+
+const result = products2.filter(product => product.inStock && product.price > 500).map(product => `🔥 Premium: ${product.name} ($${product.price})`);
+if (result.length > 0) {
+    console.log(result);
+} else {
+    console.log('No premium products available.');
+};
+
+
+// 🧩 Chaining with .find() Challenge: Featured Product Picker
+
+//* 🎯 Scenario:
+//  We are building a featured section on a luxury website.
+//  From the full product list, you need to:
+//  1. Filter for products that:
+//  • Are in stock
+//  • Cost more than $500
+//  2. Then, find the first product from a specific brand.
+//  3. If found, log:
+//  - 🏆 Featured: [Name] from [Brand] ($[Price])
+//  4. If not found, log:
+//  - ❌ No featured product available from [Brand]
+
+//* ✅ Sample Data:
+
+const products3 = [
+    { name: 'Laptop', price: 1200, inStock: true, brand: 'NovaTech' },
+    { name: 'Phone', price: 800, inStock: false, brand: 'TechEdge' },
+    { name: 'Tablet', price: 600, inStock: true, brand: 'NovaTech' },
+    { name: 'Monitor', price: 300, inStock: true, brand: 'DisplayWorks' },
+    { name: 'Headphones', price: 150, inStock: false, brand: 'AudioMax' },
+];
+
+//? 🧠 Task:
+//  1. Chain:
+//  • .filter() → in stock & over $500
+//  • .find() → brand === 'NovaTech'
+//  2. Log the featured product or fallback message.
+
+//! Solution
+
+const stockProducts = products3
+    .filter(product => product.inStock && product.price > 500)
+    .find(product => product.brand === 'NovaTech');
+
+if (stockProducts) {
+    console.log(`🏆 Featured: ${stockProducts.name} from ${stockProducts.brand} ($${stockProducts.price})`);
+} else {
+    console.log(`❌ No featured product available from NovaTech`);
+};
+
+
+
+// 🧩 Dynamic Search System Challenge: Brand + Price Search
+
+//* 🎯 Scenario:
+// We are building a live search system for an online store admin panel.
+//  Admins can enter:
+//  A brand name (e.g., 'NovaTech')
+//  A minimum price (e.g., 500)
+//  The system should:
+//  1. Filter all products that:
+//  • Are in stock
+//  • Have a price greater than or equal to the input
+//  2. Find the first product that matches the brand input
+//  3. Map the entire filtered list to this format:
+//  - "Laptop ($1200) from NovaTech"
+//  4. Log:
+//  • 🟢 Matched product
+//  • 🔄 All available options in case of fallback
+//  • ❌ If nothing matches at all
+
+//* ✅ Sample Data:
+
+const products4 = [
+    { name: 'Laptop', price: 1200, inStock: true, brand: 'NovaTech' },
+    { name: 'Phone', price: 800, inStock: false, brand: 'TechEdge' },
+    { name: 'Tablet', price: 600, inStock: true, brand: 'NovaTech' },
+    { name: 'Monitor', price: 300, inStock: true, brand: 'DisplayWorks' },
+    { name: 'Headphones', price: 150, inStock: false, brand: 'AudioMax' },
+];
+
+//? 🧠 Task:
+//  1. Ask the user for:
+//  • searchBrand = 'NovaTech'
+//  • minPrice = 500
+//  2. Chain .filter() ➔ .find() ➔ .map() for display
+//  3. Log:
+//  • The matching product is found
+//  • Fallback message with filtered list if no match
+//  • Fallback message if the list is empty
+
+//! Solution 1.
+
+const searchBrand = 'NovaTech';
+const minimumPrice = 500;
+
+//* Step 1.
+
+const filteredProducts = products4.filter(product => product.inStock && product.price >= minimumPrice);
+
+//* Step 2.
+
+const featuredProduct = filteredProducts.find(product => product.brand === searchBrand);
+
+//* Step 3.
+
+const displayList = filteredProducts.map(product => `${product.name} ($${product.price}) from ${product.brand}`);
+
+//* Step 4.
+
+if (featuredProduct) {
+    console.log(`🏆 Featured: ${featuredProduct.name} ($${featuredProduct.price}) from ${featuredProduct.brand}`);
+} else if (displayList.length > 0) {
+    console.log(`🔄 No featured product from ${searchBrand}, but here are other options:`);
+    console.log(displayList);
+} else {
+    console.log(`❌ No products available matching your criteria.`);
+};
+
+//! Solution 2.
+
+// Filter, find, and map products
+const matchingProducts = products4.filter(
+    product => product.inStock && product.price >= minimumPrice && product.brand === searchBrand
+); 
+
+if (matchingProducts.length > 0) {
+    // Mapping the results if found
+    const stockProducts2 = matchingProducts.map(product => `${product.name} ($${product.price}) from ${product.brand}`);
+    console.log(stockProducts2);
+} else if (products4.filter(product => product.price >= minimumPrice).length > 0) {
+    // If there are other featured products available but not matching the brand
+    console.log(`❌ No featured product available from ${searchBrand}`);
+} else {
+    // If no products at all in the price range
+    console.log(`❌ No products available at or above $${minimumPrice}`);
+}
